@@ -1,12 +1,12 @@
 //Creating first object of data for 1st and Pike
-var hours = ['6AM','7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM', '8PM']
+var hours = ['6AM','7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM', '8PM'];
 
 var storeOne = {
   name: '1st and Pike Place',
   minCust: 23,
   maxCust: 65,
   avgCookies: 6.3,
-
+  totalCookies : 0,
   avgCustomers: [],
   avgCookiesPerHour: [],
 
@@ -28,11 +28,19 @@ var storeOne = {
     }
   },
 
+  cookieSum: function(){
+    this.cookiesPerHour();
+    for(var i =0; i<hours.length; i++){
+     this.totalCookies =+ this.avgCookiesPerHour[i]; 
+    }
+    return this.totalCookies;
+  }
+
 
 
 };
 
 storeOne.customersPerHour();
 storeOne.cookiesPerHour();
-
+storeOne.cookieSum();
 
