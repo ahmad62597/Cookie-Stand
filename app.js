@@ -309,5 +309,54 @@ var pikeAndFirst = {
 
  alki.render();
 
+var stores = []
+function Stores (name, cookies, hour, total){
+  this.name = name;
+  this.cookies = cookies;
+  this.hour = hour;
+  this.total = hour;
 
+stores.push(this);
+this.render();
+}
 
+Stores.prototype.cookieCalc = function() {generateRandomCustPerHour: function(min, max) {
+    for(var i = 0; i < this.hoursOfOps.length; i++) {
+      var randomCust = Math.floor(Math.random() * (max - min + 1) + min);
+      this.custPerHour.push(randomCust);
+    }
+  }
+  generateHourlySales: function() {
+    // Line below will populate custPerHour array
+    this.generateRandomCustPerHour(this.minCustPerHour, this.maxCustPerHour);
+
+    for(var i = 0; i < this.hoursOfOps.length; i++) {
+      var perHour = Math.round(this.custPerHour[i] * this.avgCookiesPerCust);
+      this.cookiesPerHour.push(perHour);
+
+      // this.dailyTotal = this.dailyTotal + perHour;
+      this.dailyTotal += perHour;
+    }
+
+  } 
+}
+
+function createTable() {
+  // This function is used to establish ONE SINGLE table in the DOM for us to work with when we start rendering individual rows for each Turtle
+  var mainEl = document.getElementById('main-content');
+  var tblEl = document.createElement('table');
+  var theadEl = document.createElement('thead');
+  var tbodyEl = document.createElement('tbody');
+  var tfootEl = document.createElement('tfoot');
+
+  mainEl.appendChild(tblEl);
+  tblEl.appendChild(theadEl);
+  tblEl.appendChild(tbodyEl);
+  tblEl.appendChild(tfootEl);
+
+  tblEl.id = 'turtle-table';
+  theadEl.id = 'tbl-head';
+  tbodyEl.id = 'tbl-body';
+  tfootEl.id = 'tbl-foot';
+  tblEl.className = 'tbl';
+}
