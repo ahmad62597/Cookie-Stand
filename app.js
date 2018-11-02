@@ -24,26 +24,26 @@ Store.prototype.generateRandomCustPerHour = function(min, max) {
 };
 
 Store.prototype.generateHourlySales = function() {
-  
+  // Line below will populate custPerHour array
   this.generateRandomCustPerHour(this.min, this.max);
 
   for (var i = 0; i < hoursOfOps.length; i++) {
     var perHour = Math.round(this.custPerHour[i] * this.avg);
     this.cookiesPerHour.push(perHour);
 
-    
+    // this.dailyTotal = this.dailyTotal + perHour;
     this.dailyTotal += perHour;
   }
 };
 
 Store.prototype.render = function() {
-
+  // Line below will generate hourly sales, which also generates customers per hour
   this.generateHourlySales();
 
   var tbodyEl = document.getElementById('tbl-body');
   var trEl = document.createElement('tr');
-
-
+  // this.name => 'First and Pike'
+  // trEl.id = this.name.toLowerCase().replace(' ', '_') // Scott will come back to this if we have time.
 
   var thEl = document.createElement('th');
   thEl.textContent = this.name;
@@ -144,13 +144,27 @@ function createTableFooter() {
   createTableBody();
 })();
 
-
-
 new Store('First and Pike', 23, 65, 6.4);
 new Store('SeaTac', 3, 24, 1.2);
 new Store('Seattle Center', 11, 38, 3.7);
-new Store('Capitol Hill', 20, 38, 2.3);
-new Store('Alki', 2, 16, 4.6);
+new Store('Capitol Hill', 20, 38, 2.3  )
+new Store('Alki', 2, 16, 4.6)
 
+// var salesFormEl = document.getElementById('sales-form');
+// salesFormEl.addEventListener('submit', function() {})
 
+document.getElementById('sales-form').addEventListener('submit', function(event) {
+  event.preventDefault();
 
+  var name = event.target.storename.value;
+  var min = event.target.min.value;
+  var max = event.target.max.value;
+  var avg = event.target.avg.value;
+
+  new Store(name, min, max, avg);
+
+  event.target.storename.value = '';
+  event.target.min.value = '';
+  event.target.max.value = '';
+  event.target.avg.value = '';
+});
